@@ -1,15 +1,21 @@
 class Solution {
 public:
     bool isPalindrome(int x) {
-        if(x<0)return false;
-        long long rev=0;
-        int n=x;
-        while(x!=0){
-            int ld=x%10;
-            rev = rev*10+ld;
-            x=x/10;
+
+        // Negative numbers are never palindrome
+        if (x < 0 || (x % 10 == 0 && x != 0))
+            return false;
+
+        int rev = 0;
+
+        // Reverse only half
+        while (x > rev) {
+            rev = rev * 10 + x % 10;
+            x /= 10;
         }
-        return rev==n;
-        
+
+        // Even digits: x == rev
+        // Odd digits: x == rev / 10
+        return x == rev || x == rev / 10;
     }
 };
